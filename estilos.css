@@ -1,0 +1,195 @@
+/* Fondo con cielo de noche */
+body{
+    margin:0;
+    padding:0;
+    background: linear-gradient(to bottom, #001021, #003366);
+    overflow:hidden;
+    font-family: sans-serif;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* 🌟 Estrellas */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:0.8;
+    top: 0;
+    left: 0;
+    animation: twinkle 2s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes twinkle{
+    from{ opacity:0.3; }
+    to{ opacity:1; }
+}
+
+/* ❤️ Corazón inicial */
+.heart{
+    width:120px;
+    height:120px;
+    background:red;
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform: translate(-50%,-50%) rotate(-45deg);
+    cursor:pointer;
+    animation: latido 1s infinite, glow 2s ease-in-out infinite;
+}
+
+.heart::before,
+.heart::after{
+    content:"";
+    width:120px;
+    height:120px;
+    background:red;
+    border-radius:50%;
+    position:absolute;
+}
+
+.heart::before{ top:-60px; left:0; }
+.heart::after{ left:60px; top:0; }
+
+@keyframes latido{
+    0%,100%{ transform: translate(-50%,-50%) rotate(-45deg) scale(1); }
+    50%{ transform: translate(-50%,-50%) rotate(-45deg) scale(1.2); }
+}
+
+@keyframes glow{
+    0%{
+        filter: drop-shadow(0 0 5px #00d9ff)
+                drop-shadow(0 0 10px #00d9ff)
+                drop-shadow(0 0 20px #00d9ff);
+    }
+    50%{
+        filter: drop-shadow(0 0 10px gold)
+                drop-shadow(0 0 20px gold)
+                drop-shadow(0 0 40px gold);
+    }
+    100%{
+        filter: drop-shadow(0 0 5px #00d9ff)
+                drop-shadow(0 0 10px #00d9ff)
+                drop-shadow(0 0 20px #00d9ff);
+    }
+}
+
+/* 💥 Explosión mini corazones */
+.explode-heart{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    transform: rotate(-45deg);
+    animation: explode 1.2s forwards;
+}
+
+.explode-heart::before,
+.explode-heart::after{
+    content:"";
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+    position:absolute;
+}
+
+.explode-heart::before{ top:-10px; left:0; }
+.explode-heart::after{ left:10px; top:0; }
+
+@keyframes explode{
+    to{
+        transform: translate(var(--x), var(--y)) rotate(-45deg);
+        opacity:0;
+    }
+}
+
+/* 🌳 Árbol de corazones */
+.tree{
+    position:absolute;
+    bottom:0;
+    left:50%;
+    width:0;
+    height:0;
+    display:none;
+}
+
+.small-heart{
+    position:absolute;
+    width:30px;
+    height:30px;
+    background:red;
+    transform: rotate(-45deg);
+    opacity:0;
+    animation: appear 1s forwards, floatTree 3s ease-in-out infinite;
+}
+
+@keyframes appear{
+    to{ opacity:1; }
+}
+
+@keyframes floatTree{
+    0%{ transform: rotate(-45deg) translateY(0); }
+    50%{ transform: rotate(-45deg) translateY(-8px); }
+    100%{ transform: rotate(-45deg) translateY(0); }
+}
+
+/* ✨ Nombre grande */
+.big-name{
+    position:absolute;
+    top:35%;
+    font-size:60px;
+    color:white;
+    text-align:center;
+    width:100%;
+    opacity:0;
+}
+
+@keyframes showName{
+    0%{ opacity:0; transform: scale(0.8); }
+    20%{ opacity:1; transform: scale(1); }
+    80%{ opacity:1; }
+    100%{ opacity:0; transform: scale(1.1); }
+}
+
+/* 💐 Ramo de flores */
+.bouquet{
+    position:absolute;
+    bottom:10%;
+    right:-200px;
+    display:flex;
+    gap:15px;
+    opacity:1;
+    transition: all 1s ease;
+    text-align: center;
+}
+
+.bouquet.show{
+    right:50%;
+    transform: translateX(50%);
+}
+
+/* 🌼 Flores amarillas */
+.flower{
+    width:40px;
+    height:40px;
+    background:yellow;
+    border-radius:50%;
+    cursor:pointer;
+    position:relative;
+}
+
+/* Mensaje de la flor */
+.flower-message{
+    position:absolute;
+    top:5%;
+    left:50%;
+    transform: translateX(-50%);
+    font-size:20px;
+    color:white;
+    text-align:center;
+    width:80%;
+}
