@@ -213,7 +213,7 @@ function mostrarTextosFinales(){
         "No es mucho...", 
         "Esta sencillita😓",
         "pero lo hice con mucho esfuerzo y cariño😊🌹",
-        "Feliz San Valentin mi amor💕✨🥰",
+        "Feliz San Valentin💕✨🥰",
     ];
 
     let i = 0;
