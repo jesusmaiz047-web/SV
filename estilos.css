@@ -1,195 +1,497 @@
-/* Fondo con cielo de noche */
-body{
-    margin:0;
-    padding:0;
-    background: linear-gradient(to bottom, #001021, #003366);
-    overflow:hidden;
-    font-family: sans-serif;
-    width: 100vw;
-    height: 100vh;
+* {
+    box-sizing: border-box;
 }
 
-/* 🌟 Estrellas */
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    border-radius:50%;
-    opacity:0.8;
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(circle at top, #0a0441, #122e4e);
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ===== CONTENEDOR DEL CORAZÓN ===== */
+#corazonInicial {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    animation: brillo-cambiante 2s ease-in-out infinite;
+}
+
+@keyframes brillo-cambiante {
+    45% {
+        filter: drop-shadow(0 0 15px #00f0ff) drop-shadow(0 0 25px #00f0ff) drop-shadow(0 0 40px #00f0ff);
+    }
+
+    60% {
+        filter:
+            drop-shadow(0 0 20px violet) drop-shadow(0 0 35px violet) drop-shadow(0 0 55px violet);
+    }
+}
+
+/* ===== CORAZÓN PRINCIPAL ===== */
+.corazon {
+    width: 120px;
+    height: 120px;
+    background: red;
+    position: relative;
+    transform: rotate(45deg);
+    animation: palpitar 1s infinite;
+    cursor: pointer;
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: red;
+    border-radius: 50%;
+}
+
+.corazon::before {
+    top: -60px;
+    left: 0;
+}
+
+.corazon::after {
+    left: -60px;
+    top: 0;
+}
+
+
+/* ===== ANIMACIÓN DE PALPITAR ===== */
+@keyframes palpitar {
+    0% {
+        transform: rotate(45deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(45deg) scale(1.1);
+    }
+
+    100% {
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+
+/* ===== ANIMACIÓN DE ENCOGER (AL HACER CLICK) ===== */
+.encoger {
+    animation: encoger 0.15s forwards;
+}
+
+@keyframes encoger {
+    to {
+        transform: rotate(45deg) scale(0.6);
+    }
+}
+
+
+/* ===== MINI CORAZONES QUE EXPLOTAN ===== */
+.explode-corazon {
+    position: fixed;
+    width: 12px;
+    height: 12px;
+    background: red;
+    transform: rotate(45deg);
+    animation: explotar 1.8s ease-out forwards;
+}
+
+.explode-corazon::before,
+.explode-corazon::after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+}
+
+.explode-corazon::before {
+    top: -6px;
+    left: 0;
+}
+
+.explode-corazon::after {
+    left: -6px;
+    top: 0;
+}
+
+@keyframes explotar {
+    to {
+        transform: translate(var(--x), var(--y)) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+/*Nombre penélope*/
+#nombre {
+    position: fixed;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    color: white;
+    text-align: center;
+    opacity: 0;
+    text-shadow: 0 0 10px #fd8c0a;
+    z-index: 2;
+}
+
+/*Animacion de aparicion del nombre*/
+@keyframes mostrarNombre {
+    0% {
+        opacity: 0;
+        transform: translateY(-60%) scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+/*contenedor de estrellas*/
+#fondoEstrellas {
+    position: fixed;
     top: 0;
     left: 0;
-    animation: twinkle 2s infinite alternate;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
+    z-index: 1;
 }
 
-@keyframes twinkle{
-    from{ opacity:0.3; }
-    to{ opacity:1; }
+/*Estrellas individual*/
+.estrella {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: subirEstrellas 1.5s ease-out forwards;
 }
 
-/* ❤️ Corazón inicial */
-.heart{
-    width:120px;
-    height:120px;
-    background:red;
-    position:absolute;
-    top:40%;
-    left:50%;
-    transform: translate(-50%,-50%) rotate(-45deg);
-    cursor:pointer;
-    animation: latido 1s infinite, glow 2s ease-in-out infinite;
-}
-
-.heart::before,
-.heart::after{
-    content:"";
-    width:120px;
-    height:120px;
-    background:red;
-    border-radius:50%;
-    position:absolute;
-}
-
-.heart::before{ top:-60px; left:0; }
-.heart::after{ left:60px; top:0; }
-
-@keyframes latido{
-    0%,100%{ transform: translate(-50%,-50%) rotate(-45deg) scale(1); }
-    50%{ transform: translate(-50%,-50%) rotate(-45deg) scale(1.2); }
-}
-
-@keyframes glow{
-    0%{
-        filter: drop-shadow(0 0 5px #00d9ff)
-                drop-shadow(0 0 10px #00d9ff)
-                drop-shadow(0 0 20px #00d9ff);
+/*Animacion de subida*/
+@keyframes subirEstrellas {
+    0% {
+        transform: translateY(100vh);
+        opacity: 0;
     }
-    50%{
-        filter: drop-shadow(0 0 10px gold)
-                drop-shadow(0 0 20px gold)
-                drop-shadow(0 0 40px gold);
-    }
-    100%{
-        filter: drop-shadow(0 0 5px #00d9ff)
-                drop-shadow(0 0 10px #00d9ff)
-                drop-shadow(0 0 20px #00d9ff);
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 
-/* 💥 Explosión mini corazones */
-.explode-heart{
-    position:absolute;
-    width:20px;
-    height:20px;
-    background:red;
-    transform: rotate(-45deg);
-    animation: explode 1.2s forwards;
+
+
+
+
+/*MINI CORAZONES*/
+
+.mini-corazon {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    transform: rotate(45deg);
+    animation: explotarMini 1.2s ease-out forwards;
 }
 
-.explode-heart::before,
-.explode-heart::after{
-    content:"";
-    width:20px;
-    height:20px;
-    background:red;
-    border-radius:50%;
-    position:absolute;
+/* Forma del corazón */
+.mini-corazon::before,
+.mini-corazon::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: red;
+    border-radius: 50%;
 }
 
-.explode-heart::before{ top:-10px; left:0; }
-.explode-heart::after{ left:10px; top:0; }
+.mini-corazon::before {
+    top: -7px;
+    left: 0;
+}
 
-@keyframes explode{
-    to{
-        transform: translate(var(--x), var(--y)) rotate(-45deg);
-        opacity:0;
+.mini-corazon::after {
+    left: -7px;
+    top: 0;
+}
+
+/* Animación de explosión */
+@keyframes explotarMini {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(45deg) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) rotate(45deg) scale(0.5);
     }
 }
 
-/* 🌳 Árbol de corazones */
-.tree{
-    position:absolute;
-    bottom:0;
-    left:50%;
-    width:0;
-    height:0;
-    display:none;
+/* ===== CIELO CON ESTRELLAS ===== */
+
+.mostrar-estrellas::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 200px 200px;
+    background-position: 0 0, 50px 50px, 100px 100px;
+    opacity: 0;
+    animation: aparecerEstrellas 2s ease forwards;
+    z-index: 0;
+    pointer-events: none;
+
+    opacity: 0;
+    transition: opacity 2s ease;
 }
 
-.small-heart{
-    position:absolute;
-    width:30px;
-    height:30px;
-    background:red;
-    transform: rotate(-45deg);
-    opacity:0;
-    animation: appear 1s forwards, floatTree 3s ease-in-out infinite;
+.mostrar-estrellas::before {
+    opacity: 1;
 }
 
-@keyframes appear{
-    to{ opacity:1; }
+@keyframes aparecerEstrellas {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-@keyframes floatTree{
-    0%{ transform: rotate(-45deg) translateY(0); }
-    50%{ transform: rotate(-45deg) translateY(-8px); }
-    100%{ transform: rotate(-45deg) translateY(0); }
+.lluvia-corazones {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
 }
 
-/* ✨ Nombre grande */
-.big-name{
-    position:absolute;
-    top:35%;
-    font-size:60px;
-    color:white;
-    text-align:center;
-    width:100%;
-    opacity:0;
+.corazon-lluvia {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: pink;
+    clip-path: polygon(50% 0%, 61% 11%, 75% 11%, 84% 22%, 84% 35%, 75% 46%, 50% 62%, 25% 46%, 16% 35%, 16% 22%, 25% 11%, 39% 11%);
+    animation: caer 5s linear infinite;
+    opacity: 0.8;
 }
 
-@keyframes showName{
-    0%{ opacity:0; transform: scale(0.8); }
-    20%{ opacity:1; transform: scale(1); }
-    80%{ opacity:1; }
-    100%{ opacity:0; transform: scale(1.1); }
+@keyframes caer {
+    0% {
+        transform: translateY(-50px) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) translateX(50px);
+        opacity: 0;
+    }
 }
 
-/* 💐 Ramo de flores */
-.bouquet{
-    position:absolute;
-    bottom:10%;
-    right:-200px;
-    display:flex;
-    gap:15px;
-    opacity:1;
-    transition: all 1s ease;
+#mensaje-navegacion {
+    position: fixed;
+    top: 65%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 3;
     text-align: center;
 }
 
-.bouquet.show{
-    right:50%;
-    transform: translateX(50%);
+#mensaje-navegacion button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #ff6b81;
+    color: white;
+    transition: 0.3s;
 }
 
-/* 🌼 Flores amarillas */
-.flower{
-    width:40px;
-    height:40px;
-    background:yellow;
-    border-radius:50%;
-    cursor:pointer;
-    position:relative;
+#mensaje-navegacion button:hover {
+    background-color: #ff4c61;
+    transform: scale(1.1);
 }
 
-/* Mensaje de la flor */
-.flower-message{
-    position:absolute;
-    top:5%;
-    left:50%;
+#mensaje {
+    font-size: 1.8rem;
+    color: white;
+    display: inline-block;
+    min-width: 250px;
+    margin: 10px 0;
+}
+
+/* Contenedor del ramo */
+#ramo {
+    position: fixed;
+    bottom: -300px;
+    /* empieza fuera de la pantalla */
+    left: 50%;
     transform: translateX(-50%);
-    font-size:20px;
-    color:white;
-    text-align:center;
-    width:80%;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+    animation: subirRamo 2s forwards;
+}
+
+/* Flor amarilla */
+.flor {
+    width: 30px;
+    height: 30px;
+    background-color: yellow;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 0, 0.8);
+    animation: brisa 3s ease-in-out infinite alternate;
+    cursor: pointer;
+}
+
+/* Animación que sube el ramo */
+@keyframes subirRamo {
+    from {
+        bottom: -300px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 50%;
+        opacity: 1;
+    }
+}
+
+/* Movimiento suave de brisa */
+@keyframes brisa {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-3px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(-2deg);
+    }
+}
+
+/* Broma */
+#broma {
+    animation: desaparecer 1.5s forwards;
+}
+
+@keyframes desaparecer {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+#btnMusica {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    background: #ffffffcc;
+    cursor: pointer;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+#btnMusica:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+/* ===== RESPONSIVIDAD (MOBILE) ===== */
+@media (max-width: 768px) {
+    #nombre {
+        font-size: 2rem;
+        width: 90%;
+    }
+
+    #mensaje {
+        font-size: 1.3rem;
+        min-width: 200px;
+    }
+
+    #mensaje-navegacion {
+        top: 70%;
+    }
+
+    #mensaje-navegacion button {
+        padding: 8px 12px;
+        font-size: 1rem;
+    }
+
+    .corazon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .corazon::before,
+    .corazon::after {
+        width: 80px;
+        height: 80px;
+    }
+
+    .corazon::before {
+        top: -40px;
+    }
+
+    .corazon::after {
+        left: -40px;
+    }
+
+    #ramo {
+        bottom: 15%;
+        transform: translateX(-50%) scale(0.6);
+    }
+}
+
+#escena {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
 }

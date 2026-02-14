@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para tu</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <div class="estrellas"></div>
+
+    <div id="escena">
+        <div id="background"></div>
+        <div id="corazonInicial">
+            <div class="corazon"></div>
+        </div>
+        <div id="nombre"></div>
+        <div id="mensaje-navegacion" style="display: none;">
+            <button id="prevMensaje">&lt;</button>
+            <span id="mensaje"></span>
+            <button id="nextMensaje">&gt;</button>
+        </div>
+        <div id="fondoEstrellas"></div>
+        <div class="lluvia-corazones"></div>
+        <audio id="musicaFondo" src="musica_fondo.mp3" autoplay loop></audio>
+
+        <div id="ramo" style="display:none;">
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+            <div class="flor"></div>
+        </div>
+        <button id="btnMusica">Tocame</button>
+
+        <div id="broma" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        font-size: 3rem; color: rgb(255, 255, 255); display:none; z-index:5; pointer-events:none;">
+            Negra
+        </div>
+    </div>
+
+    <script src="javascript.js"></script>
+
+</body>
+
+</html>
